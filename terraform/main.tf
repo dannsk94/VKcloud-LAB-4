@@ -1,3 +1,4 @@
+#trigger
 terraform {
   required_providers {
     vkcs = {
