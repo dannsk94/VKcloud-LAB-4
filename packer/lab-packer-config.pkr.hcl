@@ -65,7 +65,7 @@ build {
       "sudo apt-get install -y nginx",
       
       "echo 'Installing PHP...'",
-      "sudo apt-get install -y php-fpm php-mysqlnd",
+      "sudo apt-get install -y php-fpm php-mysqlnd --fix-missing",
       
       "echo 'Configuring nginx...'",
       "sudo systemctl enable nginx",
