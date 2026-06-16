@@ -28,8 +28,10 @@ jobs:
           IMAGE_ID=$(grep -oP 'An image was created: \K[0-9a-f-]+' build.log)
           echo "image_name = \"$IMAGE_ID\"" > ../terraform/image.auto.tfvars
           echo "Image ID: $IMAGE_ID"
-      - name: Upload image ID
-        uses: actions/upload-artifact@v4
-        with:
-          name: image-id
-          path: terraform/image.auto.tfvars
+      - name: Commit and Push image ID
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add terraform/image.auto.tfvars
+          git diff --staged --quiet || git commit -m "Update image ID [skip ci]"
+          git push
