@@ -37,3 +37,9 @@ output "db_password_file" {
   value       = "${path.module}/db_password.txt"
   description = "File with database password"
 }
+resource "local_file" "k8s_configmap" {
+  content = templatefile("${path.module}/templates/configmap.yaml.tpl", {
+    lb_ip = vkcs_networking_floatingip.lb.address
+  })
+  filename = "${path.module}/../kubernetes/configmap.yaml"
+}
