@@ -1,0 +1,10 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+*.log
+
+# Packer
+packer/clouds.yaml
+packer/build.log

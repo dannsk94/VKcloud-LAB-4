@@ -1,0 +1,35 @@
+name: Packer Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  packer:
+    name: Packer Build
+    runs-on: ubuntu-latest
+    env:
+      PACKER_GITHUB_API_TOKEN: ${{ secrets.PACKER_GITHUB_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-packer@v3
+      - name: Create clouds.yaml
+        run: |
+          cat > packer/clouds.yaml << 'EOF'
+          ${{ secrets.CLOUDS_YAML }}
+          EOF
+      - name: Packer Init
+        run: |
+          cd packer
+          packer init lab-packer-config.pkr.hcl
+      - name: Packer Build and Get Image ID
+        run: |
+          cd packer
+          OS_CLOUD=vkcs packer build lab-packer-config.pkr.hcl 2>&1 | tee build.log
+          IMAGE_ID=$(grep -oP 'An image was created: \K[0-9a-f-]+' build.log)
+          echo "image_name = \"$IMAGE_ID\"" > ../terraform/image.auto.tfvars
+          echo "Image ID: $IMAGE_ID"
+      - name: Upload image ID
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-id
+          path: terraform/image.auto.tfvars
