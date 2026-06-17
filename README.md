@@ -101,11 +101,19 @@ Actions → Terraform CI/CD → Run workflow (запустит Destroy)
 
 | Secret | Назначение |
 |--------|------------|
-| `CLOUDS_YAML` | Аутентификация VK Cloud |
-| `AWS_ACCESS_KEY_ID` | Доступ к S3 |
-| `AWS_SECRET_ACCESS_KEY` | Доступ к S3 |
-| `SSH_PUBLIC_KEY` | Публичный SSH ключ |
-| `PACKER_GITHUB_API_TOKEN` | GitHub токен |
+| `CLOUDS_YAML` | Аутентификация VK Cloud (Packer + Terraform) |
+| `AWS_ACCESS_KEY_ID` | Доступ к S3 backend |
+| `AWS_SECRET_ACCESS_KEY` | Секретный ключ S3 |
+| `SSH_PUBLIC_KEY` | Публичный SSH ключ для ВМ |
+| `PACKER_GITHUB_API_TOKEN` | GitHub токен для Packer плагинов |
+| `OS_AUTH_URL` | URL аутентификации VK Cloud |
+| `OS_USERNAME` | Имя пользователя |
+| `OS_PASSWORD` | Пароль |
+| `OS_PROJECT_ID` | ID проекта |
+| `OS_REGION_NAME` | Регион (RegionOne) |
+| `OS_USER_DOMAIN_NAME` | Домен пользователя (users) |
+| `OS_INTERFACE` | Интерфейс (public) |
+| `OS_IDENTITY_API_VERSION` | Версия API (3) |
 
 ## 📤 Выходные данные Terraform
 
